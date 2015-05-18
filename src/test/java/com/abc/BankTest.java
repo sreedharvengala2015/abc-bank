@@ -39,16 +39,27 @@ public class BankTest {
 
         assertEquals(2.0, bank.totalInterestPaid(), DOUBLE_DELTA);
     }
-
+// Added couple of test cases only. If time permits more cases can be added.
     @Test
-    public void maxi_savings_account() {
+    public void maxi_savings_account_with_withdraw() {
         Bank bank = new Bank();
         Account checkingAccount = new Account(Account.MAXI_SAVINGS);
         bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
 
         checkingAccount.deposit(3000.0);
+        checkingAccount.withdraw(2000.0);
 
-        assertEquals(170.0, bank.totalInterestPaid(), DOUBLE_DELTA);
+        assertEquals(1.0, bank.totalInterestPaid(), DOUBLE_DELTA);
     }
+    
+    @Test
+    public void maxi_savings_account_with_no_withdraw() {
+        Bank bank = new Bank();
+        Account checkingAccount = new Account(Account.MAXI_SAVINGS);
+        bank.addCustomer(new Customer("Bill").openAccount(checkingAccount));
 
+        checkingAccount.deposit(1000.0);
+
+        assertEquals(50.0, bank.totalInterestPaid(), DOUBLE_DELTA);
+    }
 }
