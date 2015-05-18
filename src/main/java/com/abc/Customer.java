@@ -24,7 +24,7 @@ public class Customer {
     }
 
     public int getNumberOfAccounts() {
-        return accounts.size();
+        return accounts!=null ? accounts.size() : 0;
     }
 
     public double totalInterestEarned() {
@@ -33,7 +33,21 @@ public class Customer {
             total += a.interestEarned();
         return total;
     }
-
+    
+    public void interAccountTransfer(double amount, Account fromAccount, Account toAccount){
+    	if (fromAccount.getAccountType() == toAccount.getAccountType()){
+    		throw new IllegalArgumentException("Cannot transfer within the same accounts");
+    	}
+    	if (fromAccount.sumTransactions() < amount){
+    		throw new IllegalArgumentException("Cannot transfer within the same accounts");
+    	}
+    	else{
+    		if (fromAccount!= null)
+    			fromAccount.withdraw(amount);
+    		if (toAccount!= null)
+    			toAccount.deposit(amount);
+    	}
+    }
     public String getStatement() {
         String statement = null;
         statement = "Statement for " + name + "\n";
@@ -75,4 +89,5 @@ public class Customer {
     private String toDollars(double d){
         return String.format("$%,.2f", abs(d));
     }
+
 }
