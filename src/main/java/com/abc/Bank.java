@@ -35,12 +35,13 @@ public class Bank {
     }
 
     public String getFirstCustomer() {
+        String customer = "Error";
         try {
-            customers = null;
-            return customers.get(0).getName();
+            if (customers!= null && customers.size()>0)
+                customer = customers.get(0).getName();
         } catch (Exception e){
             e.printStackTrace();
-            return "Error";
         }
+        return customer;
     }
 }
