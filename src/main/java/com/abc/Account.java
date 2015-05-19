@@ -29,6 +29,8 @@ public class Account {
 public void withdraw(double amount) {
     if (amount <= 0) {
         throw new IllegalArgumentException("amount must be greater than zero");
+    } else if (amount > sumTransactions()){
+            throw new IllegalArgumentException("withdraw amount exceeding account balance");
     } else {
         transactions.add(new Transaction(-amount));
     }
@@ -80,9 +82,16 @@ public void withdraw(double amount) {
     }
  // TODO: this method should be implemented to calculate daily interest. 
  // Need more requirements.
-     public double getDailyBalance(Date date){
-     	return 0.0;
-     }
+    public double getDailyBalance(Date date){
+        double balanceAsOf = 0.0;
+        for (Transaction t: transactions)
+            if (t.transactionDate.after(date)){
+            	break;
+            }else {
+            	balanceAsOf += t.amount;
+            }
+        return balanceAsOf;
+    }
     public double sumTransactions() {
        return checkIfTransactionsExist(true);
     }
